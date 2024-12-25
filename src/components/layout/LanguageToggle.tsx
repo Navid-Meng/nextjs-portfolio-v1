@@ -5,18 +5,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Languages } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
+import { ChevronDown } from "lucide-react";
 
-const FLAG_IMAGES = {
-  en: "https://flagsapi.com/KH/flat/64.png",  // Replace with actual English flag image path
-  km: "https://flagsapi.com/EN/flat/64.png",  // Replace with actual Khmer flag image path
-};
+type Language = 'en' | 'km';
 
-const LANGUAGE_NAMES = {
+const FLAG_IMAGES: Record<Language, string> = {
+  en: "https://flagsapi.com/GB/flat/64.png",
+  km: "https://flagsapi.com/KH/flat/64.png"
+}
+
+const LANGUAGE_NAMES: Record<Language, string> = {
   en: "English",
-  km: "ខ្មែរ",
-};
+  km: "ខ្មែរ"
+}
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
@@ -24,13 +26,13 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <Languages className="h-5 w-5" />
-          <img
+        <Button variant="ghost" size="icon">
+          <img 
             src={FLAG_IMAGES[language]}
-            alt={`Current language: ${LANGUAGE_NAMES[language]}`}
-            className="absolute -right-1 -bottom-1 h-4 w-6 rounded-sm shadow-sm"
+            alt={`Current language: ${LANGUAGE_NAMES[language]}`} 
+            className="rounded-sm"
           />
+          <ChevronDown className="h-4 w-4 opacity-50" />
           <span className="sr-only">Switch language</span>
         </Button>
       </DropdownMenuTrigger>
@@ -38,13 +40,13 @@ export function LanguageToggle() {
         {Object.entries(LANGUAGE_NAMES).map(([code, name]) => (
           <DropdownMenuItem
             key={code}
-            onClick={() => setLanguage(code)}
+            onClick={() => setLanguage(code as Language)}
             className="flex items-center gap-2"
           >
-            <img
-              src={FLAG_IMAGES[code]}
-              alt={`${name} flag`}
-              className="h-4 w-6 rounded-sm"
+            <img 
+              src={FLAG_IMAGES[code as Language]} 
+              alt={`${name} flag`} 
+              className="h-5 w-5 rounded-sm"
             />
             <span className={language === code ? "font-bold" : ""}>
               {name}
