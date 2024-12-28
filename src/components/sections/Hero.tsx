@@ -5,7 +5,9 @@ import { useLanguage } from "@/hooks/useLanguage";
 
 export function Hero() {
   const { t } = useLanguage();
-
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center text-center px-4">
       <Scene />
@@ -47,6 +49,7 @@ export function Hero() {
         variant="ghost"
         size="icon"
         className="absolute bottom-8 animate-bounce"
+        onClick={() => scrollToSection("about")}
       >
         <ArrowDown className="h-6 w-6" />
       </Button>
